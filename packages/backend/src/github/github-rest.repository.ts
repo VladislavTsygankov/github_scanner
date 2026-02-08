@@ -54,17 +54,20 @@ export class GithubRestRepository implements IGithubRepository {
   async fetchRepo(
     owner: string,
     repo: string,
-  ): Promise<Pick<RepoDetailsDTO, "id" | "size" | "isPrivate" | "name" | "owner">> {
+  ): Promise<Omit<RepoDetailsDTO, "ymlContent" | "webhooks">> {
     const { data } = await this.client.rest.repos.get({
       owner: owner,
       repo: repo,
     });
+
+    const filesCount = await this.fetchFilesCount(owner, repo, data.default_branch);
 
     return {
       id: data.id,
       name: data.name,
       size: data.size,
       isPrivate: data.private,
+      filesCount: filesCount,
       owner: {
         login: data.owner.login,
         id: data.owner.id,
@@ -118,10 +121,31 @@ export class GithubRestRepository implements IGithubRepository {
       });
 
       return webhooks.map((it) => ({ id: it.id, active: it.active, name: it.name, type: it.type }));
-    } catch (err) {
-      console.error(err);
-
+    } catch {
       return [];
     }
+  }
+
+  private async fetchFilesCount(
+    owner: string,
+    repo: string,
+    defaultBranch: string,
+  ): Promise<number> {
+    const { data: commitData } = await this.client.repos.getCommit({
+      owner,
+      repo,
+      ref: defaultBranch,
+    });
+
+    const treeSha = commitData.commit.tree.sha;
+
+    const { data: treeData } = await this.client.git.getTree({
+      owner,
+      repo,
+      tree_sha: treeSha,
+      recursive: "1",
+    });
+
+    return treeData.tree.filter((item) => item.type === "blob").length;
   }
 }

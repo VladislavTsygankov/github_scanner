@@ -6,7 +6,7 @@ export class YmlFile {
   @Field()
   name: string;
   @Field()
-  size: string;
+  size: number;
   @Field()
   url: string;
   @Field()
@@ -35,8 +35,8 @@ export class RepoDetailsDTO extends RepoDTO {
   @Field(() => Int)
   filesCount: number;
 
-  @Field({ nullable: true })
-  ymlContent?: YmlFile;
+  @Field(() => YmlFile, { nullable: true })
+  ymlContent: YmlFile | null;
 
   @Field(() => [Webhook])
   webhooks?: Webhook[];

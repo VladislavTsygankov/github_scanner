@@ -5,10 +5,7 @@ import { PaginationInput } from "src/common/dto/pagination.dto";
 
 export interface IGithubRepository {
   fetchRepoList(pagination: PaginationInput): Promise<RepoDTO[]>;
-  fetchRepo(
-    owner: string,
-    repo: string,
-  ): Promise<Pick<RepoDetailsDTO, "id" | "size" | "isPrivate" | "name" | "owner">>;
+  fetchRepo(owner: string, repo: string): Promise<Omit<RepoDetailsDTO, "ymlContent" | "webhooks">>;
   fetchWebhooks(owner: string, repo: string): Promise<Webhook[]>;
   fetchRepoContents(
     owner: string,

@@ -17,11 +17,11 @@ export class GithubResolver {
     return this.githubService.listRepos(pagination);
   }
 
-  @Query(() => RepoDetailsDTO)
+  @Query(() => [RepoDetailsDTO])
   async repoDetails(
-    @Args("repo") repo: string,
+    @Args("repos", { type: () => [String] }) repos: string[],
     @Args("owner") owner: string,
-  ): Promise<RepoDetailsDTO> {
-    return this.githubService.getRepoDetails(owner, repo);
+  ): Promise<RepoDetailsDTO[]> {
+    return this.githubService.getRepoDetails(owner, repos);
   }
 }

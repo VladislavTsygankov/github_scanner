@@ -16,7 +16,7 @@ input PaginationInput {
 
 type Query {
   listRepos(pagination: PaginationInput): [RepoDTO!]!
-  repoDetails(owner: String!, repo: String!): RepoDetailsDTO!
+  repoDetails(owner: String!, repos: [String!]!): [RepoDetailsDTO!]!
 }
 
 type RepoDTO {
@@ -48,6 +48,6 @@ type YmlFile {
   fileContent: String!
   name: String!
   path: String!
-  size: String!
+  size: Float!
   url: String!
 }
