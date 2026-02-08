@@ -9,9 +9,11 @@
     "build": "lerna run build",
     "test": "lerna run test",
     "clean": "lerna run clean",
-    "start": "lerna run start --stream",
     "lint": "lerna run lint",
-    "format": "lerna run format"
+    "format": "lerna run format",
+    "start:backend": "npm run start --workspace=backend",
+    "start:frontend": "npm run start --workspace=frontend",
+    "start": "npx npm-run-all --parallel start:backend start:frontend"
   },
   "devDependencies": {
     "lerna": "^9.0.3",
