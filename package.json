@@ -1,0 +1,20 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "lerna run dev --parallel",
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "clean": "lerna run clean",
+    "start": "lerna run start --stream",
+    "lint": "lerna run lint",
+    "format": "lerna run format"
+  },
+  "devDependencies": {
+    "lerna": "^9.0.3",
+    "prettier": "^3.8.1"
+  }
+}

@@ -1,0 +1,9 @@
+build/
+dist/
+node_modules/
+.snapshots/
+*.min.js
+.eslintrc
+lerna.json
+CHANGELOG.md
+README.md
