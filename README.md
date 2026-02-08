@@ -18,3 +18,8 @@ run `npm run build`
 run `npm run start`
 
 
+# Usage
+
+Go to `http://localhost:4173/github`
+
+
