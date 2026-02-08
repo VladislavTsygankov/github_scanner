@@ -1,0 +1,53 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Owner {
+  avatarUrl: String!
+  id: Float!
+  login: String!
+  url: String!
+}
+
+input PaginationInput {
+  limit: Int! = 10
+  offset: Int! = 1
+}
+
+type Query {
+  listRepos(pagination: PaginationInput): [RepoDTO!]!
+  repoDetails(owner: String!, repo: String!): RepoDetailsDTO!
+}
+
+type RepoDTO {
+  id: Float!
+  name: String!
+  owner: Owner!
+  size: Int!
+}
+
+type RepoDetailsDTO {
+  filesCount: Int!
+  id: Float!
+  isPrivate: Boolean!
+  name: String!
+  owner: Owner!
+  size: Int!
+  webhooks: [Webhook!]!
+  ymlContent: YmlFile
+}
+
+type Webhook {
+  active: Boolean!
+  id: Float!
+  name: String!
+  type: String!
+}
+
+type YmlFile {
+  fileContent: String!
+  name: String!
+  path: String!
+  size: String!
+  url: String!
+}
